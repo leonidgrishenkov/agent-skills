@@ -21,7 +21,13 @@ Use `uv run` for all Python scripts in this skill's `scripts/` directory:
 uv run scripts/check_fillable_fields.py <file.pdf>
 ```
 
-The `pyproject.toml` declares all dependencies; `uv sync` installs them once.
+All dependencies will be automatically installed by `uv` since there is a special hint in each file that `uv`
+understands. If something goes wrong, you can install any dependency on-the-fly specifing it with `--with` flag like
+that:
+
+```bash
+uv run --with "pypdf>=5.0" scripts/check_fillable_fields.py <file.pdf>
+```
 
 ## Quick Start
 

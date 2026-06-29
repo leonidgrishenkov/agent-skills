@@ -1,9 +1,14 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#   "pdf2image>=1.17",
+# ]
+# ///
+
 import os
 import sys
 
 from pdf2image import convert_from_path
-
-
 
 
 def convert(pdf_path, output_dir, max_dim=1000):
@@ -16,7 +21,7 @@ def convert(pdf_path, output_dir, max_dim=1000):
             new_width = int(width * scale_factor)
             new_height = int(height * scale_factor)
             image = image.resize((new_width, new_height))
-        
+
         image_path = os.path.join(output_dir, f"page_{i+1}.png")
         image.save(image_path)
         print(f"Saved page {i+1} as {image_path} (size: {image.size})")
