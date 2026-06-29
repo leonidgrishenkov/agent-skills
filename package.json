@@ -1,0 +1,10 @@
+{
+  "name": "agent-skills",
+  "version": "1.0.0",
+  "description": "Skills for AI agents",
+  "pi": {
+    "skills": [
+      "./skills/"
+    ]
+  }
+}
