@@ -20,6 +20,25 @@ Update skills:
 pi update git:github.com/leonidgrishenkov/agent-skills
 ```
 
+## Install with npx (Claude Code, Codex, Gemini CLI, ...)
+
+One-liner, no global install required:
+
+```bash
+npx -y github:leonidgrishenkov/agent-skills install --target claude
+```
+
+Targets: `claude` (`~/.claude/skills`), `pi`, `codex`, `gemini`, or `all`.
+Omit `--target` to auto-detect installed agents. Skills are symlinked by
+default — use `--copy` to copy them instead (e.g. if the npx cache may be
+cleaned), or `--dir <path>` for a custom location.
+
+```bash
+npx -y github:leonidgrishenkov/agent-skills install --target all --copy
+npx -y github:leonidgrishenkov/agent-skills uninstall --target claude
+npx -y github:leonidgrishenkov/agent-skills list
+```
+
 ## Skills
 
 | Skill              | Description                                                                                                                          |
