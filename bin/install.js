@@ -120,6 +120,23 @@ function install(args) {
   console.log(`\nDone. ${skills.length} skill(s) installed${args.copy ? " (copied)" : ""}.`);
 }
 
+function update(args) {
+  const pkgRoot = path.join(__dirname, "..");
+  // If installed from a git clone, pull the latest changes first.
+  if (fs.existsSync(path.join(pkgRoot, ".git"))) {
+    console.log("→ git pull");
+    try {
+      require("child_process").execSync("git pull --ff-only", { cwd: pkgRoot, stdio: "inherit" });
+    } catch {
+      console.warn("warning: git pull failed (not a fast-forward or no remote?) — reinstalling from current files");
+    }
+  } else {
+    console.log("→ not a git checkout; reinstalling from the installed package files");
+    console.log("  (if installed via npx, refresh the package itself with: npx -y --force github:leonidgrishenkov/agent-skills update)");
+  }
+  install(args);
+}
+
 function uninstall(args) {
   const names = new Set(discoverSkills(SKILLS_ROOT).map((s) => s.name));
   for (const dest of resolveDestDirs(args)) {
@@ -151,6 +168,7 @@ function help() {
 
 Usage:
   agent-skills install [--target claude|pi|codex|gemini|all] [--dir <path>] [--copy]
+  agent-skills update [same options]    Pull latest changes (git clones) and reinstall
   agent-skills uninstall [same options]
   agent-skills list
 
@@ -171,6 +189,9 @@ switch (args.command) {
     break;
   case "uninstall":
     uninstall(args);
+    break;
+  case "update":
+    update(args);
     break;
   case "list":
     list();

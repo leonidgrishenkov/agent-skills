@@ -34,8 +34,17 @@ agents. Skills are symlinked by default — use `--copy` to copy them instead (e
 
 ```bash
 npx -y github:leonidgrishenkov/agent-skills install --target all --copy
+npx -y github:leonidgrishenkov/agent-skills update --target claude
 npx -y github:leonidgrishenkov/agent-skills uninstall --target claude
 npx -y github:leonidgrishenkov/agent-skills list
+```
+
+`update` pulls the latest changes (when installed from a git clone) and
+reinstalls the skills. When using npx, add `--force` to also refresh the
+cached package itself:
+
+```bash
+npx -y --force github:leonidgrishenkov/agent-skills update --target claude
 ```
 
 ## Skills
