@@ -2,6 +2,9 @@
   "name": "agent-skills",
   "version": "1.0.0",
   "description": "Skills for AI agents",
+  "bin": {
+    "agent-skills": "./bin/install.js"
+  },
   "pi": {
     "skills": [
       "./skills/"

@@ -80,9 +80,9 @@ uv run scripts/some_script.py
 ## Reference
 
 For full uv usage — lockfiles, Docker/CI integration, monorepos, migration from pip/poetry/pip-tools, performance
-tuning, troubleshooting, and the complete command reference — see the bundled uv skill:
+tuning, troubleshooting, and the complete command reference — see the sibling `uv-python` skill (if installed):
 
-- [uv-package-manager/SKILL.md](uv-package-manager/SKILL.md) — core concepts, install, venvs, package & Python version
-  management, `pyproject.toml` config.
-- [uv-package-manager/references/advanced-patterns.md](uv-package-manager/references/advanced-patterns.md) — advanced
-  workflows, comparisons, and the full command reference.
+- `uv-python/SKILL.md` — core concepts, install, venvs, package & Python version management, `pyproject.toml`
+  config.
+- `uv-python/references/advanced-patterns.md` — advanced workflows, comparisons, and the full command
+  reference.
