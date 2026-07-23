@@ -63,7 +63,7 @@ function discoverSkills(dir) {
     if (fs.existsSync(path.join(full, "SKILL.md"))) {
       found.push({ name: entry.name, path: full });
     } else {
-      // nested skills, e.g. skills/python/uv-package-manager
+      // nested skills, e.g. skills/python/uv-python
       for (const sub of fs.readdirSync(full, { withFileTypes: true })) {
         if (!sub.isDirectory()) continue;
         const subFull = path.join(full, sub.name);
