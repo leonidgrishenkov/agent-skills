@@ -4,23 +4,9 @@ My collection of skills Pi and other AI agents.
 
 ## Install
 
-```bash
-pi install git:github.com/leonidgrishenkov/agent-skills
-```
+### With `npx`
 
-To install from a local clone instead:
-
-```bash
-pi install ./path/to/agent-skills
-```
-
-Update skills:
-
-```bash
-pi update git:github.com/leonidgrishenkov/agent-skills
-```
-
-## Install with npx (Claude Code, Codex, Gemini CLI, ...)
+Works for Claude Code, Pi, Codex, Gemini CLI, etc.
 
 One-liner, no global install required:
 
@@ -39,12 +25,29 @@ npx -y github:leonidgrishenkov/agent-skills uninstall --target claude
 npx -y github:leonidgrishenkov/agent-skills list
 ```
 
-`update` pulls the latest changes (when installed from a git clone) and
-reinstalls the skills. When using npx, add `--force` to also refresh the
-cached package itself:
+`update` pulls the latest changes (when installed from a git clone) and reinstalls the skills. When using npx, add
+`--force` to also refresh the cached package itself:
 
 ```bash
 npx -y --force github:leonidgrishenkov/agent-skills update --target claude
+```
+
+### Pi Coding Agent
+
+```bash
+pi install git:github.com/leonidgrishenkov/agent-skills
+```
+
+To install from a local clone instead:
+
+```bash
+pi install ./path/to/agent-skills
+```
+
+Update skills:
+
+```bash
+pi update git:github.com/leonidgrishenkov/agent-skills
 ```
 
 ## Skills
