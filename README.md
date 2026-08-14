@@ -1,6 +1,6 @@
 # agent-skills
 
-My collection of skills Pi and other AI agents.
+My collection of skills for Claude, Pi and other AI agents.
 
 ## Install
 
