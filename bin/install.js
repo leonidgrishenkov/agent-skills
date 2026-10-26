@@ -76,6 +76,16 @@ function discoverSkills(dir) {
   return found;
 }
 
+// True if `link` is a symlink into this package's skills dir — even a dangling one,
+// left behind after a skill was deleted from the package.
+function isOwnLink(link) {
+  const stat = fs.lstatSync(link, { throwIfNoEntry: false });
+  if (!stat || !stat.isSymbolicLink()) return false;
+  const target = path.resolve(path.dirname(link), fs.readlinkSync(link));
+  const rel = path.relative(SKILLS_ROOT, target);
+  return rel !== "" && rel !== ".." && !rel.startsWith(`..${path.sep}`) && !path.isAbsolute(rel);
+}
+
 function resolveDestDirs(args) {
   const dirs = [...args.dirs];
   for (const t of args.targets) {
@@ -116,6 +126,14 @@ function install(args) {
       }
       console.log(`  ${args.copy ? "copied  " : "symlinked"} ${skill.name}`);
     }
+    // Drop links to skills that were since deleted from the package.
+    const names = new Set(skills.map((s) => s.name));
+    for (const name of fs.readdirSync(dest)) {
+      const link = path.join(dest, name);
+      if (names.has(name) || !isOwnLink(link)) continue;
+      fs.unlinkSync(link);
+      console.log(`  removed   ${name} (no longer in this package)`);
+    }
   }
   console.log(`\nDone. ${skills.length} skill(s) installed${args.copy ? " (copied)" : ""}.`);
 }
@@ -142,15 +160,12 @@ function uninstall(args) {
   for (const dest of resolveDestDirs(args)) {
     if (!fs.existsSync(dest)) continue;
     console.log(`\n→ ${dest}`);
-    for (const name of names) {
+    for (const name of fs.readdirSync(dest)) {
       const link = path.join(dest, name);
-      const stat = fs.lstatSync(link, { throwIfNoEntry: false });
-      if (!stat) continue;
-      // Only remove symlinks pointing at this package, or exact copies we made.
-      if (stat.isSymbolicLink()) {
-        const real = fs.realpathSync(link);
-        if (!real.startsWith(SKILLS_ROOT)) continue;
-      }
+      const stat = fs.lstatSync(link);
+      // Only remove symlinks pointing at this package (including dangling ones to deleted
+      // skills), or copies of skills it ships.
+      if (stat.isSymbolicLink() ? !isOwnLink(link) : !names.has(name)) continue;
       fs.rmSync(link, { recursive: true, force: true });
       console.log(`  removed ${name}`);
     }
@@ -176,6 +191,8 @@ Options:
   --target   Agent to install for (repeatable). Default: auto-detect, fallback claude.
   --dir      Custom skills directory (repeatable).
   --copy     Copy skill folders instead of symlinking them.
+
+install/update also remove symlinks to skills that were deleted from this package.
 
 Examples:
   npx github:leonidgrishenkov/agent-skills install --target claude
