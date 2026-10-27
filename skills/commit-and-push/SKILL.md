@@ -8,8 +8,8 @@ description:
 # Commit and Push
 
 This skill executes the commit and push itself — run every command below directly (shell/terminal tool), don't just
-print them for the user to copy-paste. The user-facing output is the confirmation prompt in step 3 and the final report
-in step 6, not the raw commands.
+print them for the user to copy-paste. The user asking to commit or push is the go-ahead — don't ask them to approve the
+message first. The user-facing output is the final report in step 6, not the raw commands.
 
 ## How far to go
 
@@ -19,7 +19,7 @@ Go only as far as the user asked:
 - "commit" → steps 1–4 and the report. Don't push.
 - "commit and push" / "push" → the full workflow.
 
-If it's unclear which one they meant, draft the message and ask in step 3 whether to commit only or also push.
+Invoking the skill with no other instruction (e.g. `/commit-and-push`) means commit and push.
 
 ## Workflow
 
@@ -57,22 +57,16 @@ If it's unclear which one they meant, draft the message and ask in step 3 whethe
    - Body (optional, blank line after the summary): explain **why**, not a restatement of the diff. Only add one if the
      summary line isn't enough context on its own.
    - No attribution trailers (`Co-Authored-By: <agent>`, "Generated with …") unless the user asks for them.
-   - If the staged diff mixes clearly unrelated changes (e.g. a `feat` and an unrelated `fix`), say so and suggest
-     splitting into separate commits rather than writing one message that papers over both.
+   - If the staged diff mixes clearly unrelated changes (e.g. a `feat` and an unrelated `fix`), still commit what's
+     staged: use the dominant change for the summary line, list the other in the body, and mention in the report that
+     they could be split next time.
 
-3. **Confirm with the user before committing — stop and wait for their reply.** A generated message can misread intent,
-   and a push is hard to take back, so put everything in this one prompt instead of interrupting again later:
-   - the drafted message;
-   - where it goes (when pushing): the branch and its upstream (`main → origin/main`), or that a new upstream will be
-     created (`git push -u <remote> <branch>`) — if there are several remotes and none is set, ask which one;
-   - other unpushed commits from `git log @{u}..HEAD` that the push will also send;
-   - a warning if the branch is the default one (`main`/`master`) and step 1's log shows a PR workflow — pushing
-     directly may bypass review, so offer to create a branch first;
-   - a warning if the diff looks like it contains a secret (API key, token, private key, password, `.env` file) — once
-     pushed, it has to be treated as leaked.
+3. **Check for blockers — otherwise continue without asking.** Stop and ask only when:
+   - the diff looks like it contains a secret (API key, token, private key, password, `.env` file) — once pushed, it has
+     to be treated as leaked;
+   - the branch has no upstream and there are several remotes, none of them `origin` — ask which one to push to.
 
-   Skip this step only if the user explicitly said not to ask (e.g. "commit and push, don't confirm") — and even then,
-   still stop for the secret and default-branch warnings.
+   If the user asked to see or approve the message first, show it and wait for their reply.
 
 4. **Run the commit** (don't just display it). Shell quoting is where messages get mangled: heredocs and `$(...)` don't
    work in every shell (fish, for one), and inside double quotes bash expands the backticks and `$` that commit messages
@@ -91,11 +85,13 @@ If it's unclear which one they meant, draft the message and ask in step 3 whethe
 
 5. **Run the push** (skip if the user only asked to commit):
    - If the branch has an upstream, run `git push`.
-   - If it doesn't, run `git push -u <remote> <branch>` with the remote the user approved in step 3.
+   - If it doesn't, run `git push -u <remote> <branch>` with `origin`, or with the only remote if there's just one.
    - If the push is rejected (non-fast-forward, diverged history), report it and ask how to proceed — don't
      `--force`/`--force-with-lease` on your own initiative.
 
-6. **Report back** with the final commit hash/summary and confirmation the push succeeded (or why it didn't).
+6. **Report back** with the final commit hash/summary and confirmation the push succeeded (or why it didn't). Also
+   mention, when they apply: other unpushed commits from `git log @{u}..HEAD` that went out with the push, a newly
+   created upstream, and a direct push to `main`/`master` in a repo whose log shows a PR workflow.
 
 ## Guardrails
 
