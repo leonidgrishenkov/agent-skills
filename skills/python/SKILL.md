@@ -64,8 +64,8 @@ uvx black .
 
 ### Scripts bundled in a skill
 
-Run Python scripts shipped inside a skill (e.g. `scripts/`) with `uv run` — the `pdf` skill already follows this
-pattern:
+Run Python scripts shipped inside a skill (e.g. `scripts/`) with `uv run` — the `pdf-tools` skill already follows
+this pattern:
 
 ```bash
 uv run scripts/some_script.py

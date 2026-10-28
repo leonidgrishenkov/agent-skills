@@ -57,7 +57,7 @@ pi update git:github.com/leonidgrishenkov/agent-skills
 | **anki**            | Inspect, query, and manipulate a local Anki flashcard collection via the Anki Python library.                                |
 | **macos-pim**       | Manage macOS Calendar & Reminders via CLI — create, list, edit, delete, search events/reminders, check free/busy, RSVP.      |
 | **obsidian-notes**  | Search, create, and manage notes in the Obsidian vault.                                                                      |
-| **pdf**             | Extract text/tables from PDFs, merge/split documents, create new PDFs, fill forms, and OCR scanned files.                    |
+| **pdf-tools**       | Extract text/tables from PDFs, merge/split documents, create new PDFs, fill forms, and OCR scanned files.                    |
 | **python**          | Use uv for Python instead of the system interpreter — scripts, projects, packages, and virtual environments.                 |
 | **uv-python**       | Comprehensive uv guide — lockfiles, Docker/CI integration, monorepos, migration from pip/poetry, and full command reference. |
 | **commit-and-push** | Summarize staged git changes, draft a Conventional Commits-style commit message, and push to the remote.                     |

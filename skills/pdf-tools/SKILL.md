@@ -1,5 +1,5 @@
 ---
-name: pdf
+name: pdf-tools
 description:
   Extract text/tables from PDFs, merge/split documents, create new PDFs, fill forms, and OCR scanned files. Use when
   working with PDF files or when user mentions PDFs, forms, or document extraction.
