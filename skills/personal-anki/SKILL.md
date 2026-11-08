@@ -1,5 +1,5 @@
 ---
-name: anki
+name: personal-anki
 description: Inspect, query, and manipulate a local Anki flashcard collection using the Anki Python library. Use when the user asks about their Anki decks, cards, notes, review stats, or wants to programmatically add/update/delete flashcards.
 ---
 

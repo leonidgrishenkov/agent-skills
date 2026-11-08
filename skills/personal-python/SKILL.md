@@ -1,5 +1,5 @@
 ---
-name: python
+name: personal-python
 description:
   Use uv for Python instead of the system interpreter. Use when running Python scripts, creating or managing Python
   projects, installing packages, or managing virtual environments.
@@ -64,7 +64,7 @@ uvx black .
 
 ### Scripts bundled in a skill
 
-Run Python scripts shipped inside a skill (e.g. `scripts/`) with `uv run` — the `pdf-tools` skill already follows
+Run Python scripts shipped inside a skill (e.g. `scripts/`) with `uv run` — the `personal-pdf` skill already follows
 this pattern:
 
 ```bash
@@ -80,9 +80,10 @@ uv run scripts/some_script.py
 ## Reference
 
 For full uv usage — lockfiles, Docker/CI integration, monorepos, migration from pip/poetry/pip-tools, performance
-tuning, troubleshooting, and the complete command reference — see the sibling `uv-python` skill (if installed):
+tuning, troubleshooting, and the complete command reference — see the sibling `personal-uv-python` skill (if
+installed):
 
-- `uv-python/SKILL.md` — core concepts, install, venvs, package & Python version management, `pyproject.toml`
-  config.
-- `uv-python/references/advanced-patterns.md` — advanced workflows, comparisons, and the full command
+- `personal-uv-python/SKILL.md` — core concepts, install, venvs, package & Python version management,
+  `pyproject.toml` config.
+- `personal-uv-python/references/advanced-patterns.md` — advanced workflows, comparisons, and the full command
   reference.

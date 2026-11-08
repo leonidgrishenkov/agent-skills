@@ -1,5 +1,5 @@
 ---
-name: commit-and-push
+name: personal-commit-push
 description:
   Draft a Conventional Commits-style message for staged git changes, commit them, and push to the remote. Use when the
   user asks to write/generate a commit message, commit staged changes, or commit and push.
@@ -19,7 +19,7 @@ Go only as far as the user asked:
 - "commit" → steps 1–4 and the report. Don't push.
 - "commit and push" / "push" → the full workflow.
 
-Invoking the skill with no other instruction (e.g. `/commit-and-push`) means commit and push.
+Invoking the skill with no other instruction (e.g. `/personal-commit-push`) means commit and push.
 
 ## Workflow
 

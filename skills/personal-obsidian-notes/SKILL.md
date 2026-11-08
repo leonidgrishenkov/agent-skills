@@ -1,5 +1,5 @@
 ---
-name: obsidian-notes
+name: personal-obsidian-notes
 description: >
   Search, create, and manage notes in the Obsidian vault. Use when user wants to find, create, or organize their
   personal notes in Obsidian.

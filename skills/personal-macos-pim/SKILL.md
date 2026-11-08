@@ -1,5 +1,5 @@
 ---
-name: macos-pim
+name: personal-macos-pim
 description:
   Manage macOS Calendar and Reminders via CLI. Use when the user asks to
   create, list, edit, delete, or search calendar events or reminders, check free/busy availability, RSVP to invitations,
