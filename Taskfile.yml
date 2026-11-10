@@ -1,0 +1,20 @@
+version: "3"
+
+tasks:
+  default:
+    desc: List available tasks
+    silent: true
+    cmds:
+      - task --list
+
+  release:
+    desc: "Bump the version, commit, tag and push (task release -- patch|minor|major|X.Y.Z, default: patch)"
+    preconditions:
+      - sh: test "$(git branch --show-current)" = main
+        msg: Releases are tagged on main - switch to it first
+    cmds:
+      # npm version refuses to run on a dirty tree. It bumps package.json, commits it and
+      # creates an annotated tag with no `v` prefix (see .npmrc).
+      - 'npm version {{.CLI_ARGS | default "patch"}} -m "chore: release %s"'
+      # --follow-tags pushes the release commit together with its annotated tag.
+      - git push --follow-tags

@@ -52,13 +52,15 @@ pi update git:github.com/leonidgrishenkov/agent-skills
 
 ## Releasing
 
-Bump the version in `package.json`, commit, and create a matching `X.Y.Z` tag in one step (`.npmrc` drops npm's default
-`v` prefix):
+From a clean `main`, run the [Task](https://taskfile.dev) recipe:
 
 ```bash
-npm version minor -m "chore: release %s"   # or patch / major
-git push --follow-tags
+task release              # patch: 1.0.1 -> 1.0.2
+task release -- minor     # or major, or an exact version like 1.2.0
 ```
+
+It runs `npm version`, which bumps `package.json`, commits it and creates a matching `X.Y.Z` tag (`.npmrc` drops npm's
+default `v` prefix), then pushes the commit and the tag with `git push --follow-tags`.
 
 ## Skills
 
