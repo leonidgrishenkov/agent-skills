@@ -1,6 +1,8 @@
 ---
 name: write-a-skill
 description: Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.
+metadata:
+  internal: true # repo-local helper; keeps `npx skills add` from installing it
 ---
 
 # Writing Skills
@@ -25,7 +27,11 @@ description: Create new agent skills with proper structure, progressive disclosu
 
 ## Skill Structure
 
-Location: `~/.agents/skills`. (NOTE: This directory symlinked to dotfiles repo)
+Location: `skills/<skill-name>/` in this repo. Don't write to `~/.agents/skills` — the `skills` CLI manages it and
+installs into it from this repo.
+
+- Prefix the name with `personal-` and keep the directory name equal to the frontmatter `name`.
+- Add a row for the new skill to the Skills table in `README.md`.
 
 ```
 skill-name/
@@ -36,9 +42,6 @@ skill-name/
     ├── helper.py
     └── helper.js
 ```
-
-> [!NOTE]
-> The `~/.agents/skills` directory symlinked to dotfiles repo which managed by `stow`.
 
 ## SKILL.md Template
 
