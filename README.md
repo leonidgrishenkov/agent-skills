@@ -73,3 +73,4 @@ default `v` prefix), then pushes the commit and the tag with `git push --follow-
 | **personal-python**         | Use uv for Python instead of the system interpreter — scripts, projects, packages, and virtual environments.                 |
 | **personal-uv-python**      | Comprehensive uv guide — lockfiles, Docker/CI integration, monorepos, migration from pip/poetry, and full command reference. |
 | **personal-commit-push**    | Summarize staged git changes, draft a Conventional Commits-style commit message, and push to the remote.                     |
+| **personal-find-docs**      | Fetch current library, framework, and API docs with the globally installed Context7 `ctx7` CLI.                              |
