@@ -150,7 +150,7 @@ title:
 created-at: YYYY-MM-DDTHH:mm:ss±HH:mm
 modified-at: YYYY-MM-DDTHH:mm:ss±HH:mm
 aliases: [] # DO NOT FILL — reserved
-parent: [] # DO NOT FILL — reserved
+parent: [] # root/parent note(s) this note belongs to, e.g. ["[[jq]]"]
 categories: [] # DO NOT FILL — reserved
 description: # DO NOT FILL — use only when explicitly requested
 ---
@@ -162,7 +162,17 @@ Field rules:
 - `created-at` / `modified-at` — ISO 8601 with timezone offset, e.g. `2026-04-18T14:30:00+03:00`
   - Prefer computing from the agent's current date context
   - If uncertain of timezone, run `date -Iseconds` as fallback
-- `aliases`, `parent`, `categories` — DO NOT FILL; reserved fields
+- `parent` — list of wikilinks to the root/parent note(s) this note belongs to (e.g. a tool's root page).
+  **This is the only place for parent links** — never put them in a "See Also" / "Related" section in the body.
+  Use the YAML list form:
+  ```yaml
+  parent:
+    - "[[jq]]"
+  ```
+  Write it directly in the YAML list form when creating the file. Note: `obsidian property:set ... type=list` with a single value
+  writes a scalar string, not a list — if you must use it, verify with `obsidian properties file="<name>"` and fix the YAML by hand.
+  Always verify the target exists first: `obsidian read file="<target>"`.
+- `aliases`, `categories` — DO NOT FILL; reserved fields
 - `description` — leave empty unless the user explicitly requests it
 
 When **creating** a note, always fill `created-at` and `modified-at`. When **editing**, always update `modified-at`.
@@ -176,6 +186,9 @@ When **creating** a note, always fill `created-at` and `modified-at`. When **edi
 
 - Use Obsidian `[[wikilinks]]` syntax: `[[Note Title]]`
 - Before adding a wikilink, confirm the target file exists: `obsidian read file="<target>"`
+- Parent / root links go **only** in the `parent` frontmatter key (see Frontmatter above). Do not duplicate them in the body
+  and do not add a "See Also" / "Related" section for them.
+- Inline wikilinks in the body are for contextual references to other notes (siblings, concepts mentioned in the text), not for hierarchy.
 
 ### Tags
 

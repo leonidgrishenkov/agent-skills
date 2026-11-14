@@ -73,7 +73,9 @@ obsidian files folder="Base" ext="md"          # list markdown files in Base
 1. Deduplicate — `obsidian search query="<topic>"`
 2. Create in `Base/` unless a different folder is clearly appropriate
 3. Follow [Note format](REFERENCE.md#note-format) rules (frontmatter, headings, linking, etc.)
-4. Never modify files in `Template/`, `Attachments/`, or `Excalidraw/`
+4. Link the note to its root/parent note(s) via the `parent` frontmatter key (e.g. `parent: ["[[jq]]"]`) —
+   **not** via a "See Also" section in the body. Verify the parent exists first.
+5. Never modify files in `Template/`, `Attachments/`, or `Excalidraw/`
 
 ### Manage notes
 
@@ -84,6 +86,7 @@ obsidian files folder="Base" ext="md"          # list markdown files in Base
 
 ### After creating a note
 
-1. Search for related notes and add `[[wikilinks]]` where relevant
-2. Verify wikilink targets exist: `obsidian read file="<target>"` (fails cleanly if missing)
-3. Notify the user of the created note path
+1. Confirm `parent` in the frontmatter points to the root note(s); fix by editing the YAML list directly if needed (`property:set type=list` writes a scalar for a single value)
+2. Search for related notes and add inline `[[wikilinks]]` in the body where they are contextually relevant (not for hierarchy)
+3. Verify wikilink targets exist: `obsidian read file="<target>"` (fails cleanly if missing)
+4. Notify the user of the created note path
